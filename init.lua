@@ -1,3 +1,6 @@
+local zshQuoteWrap = [[ \v"\$([\{\(])?.{-}[\}\)]?" ]]
+-- TODO: Turn this into a command or some way to re-use it?
+-- matches "${foo}", "$foo", "$(foo)" 
 return {
   -- Configure AstroNvim updates
   updater = {
@@ -18,7 +21,7 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "astrodark",
+  colorscheme = "carbonfox",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -69,17 +72,17 @@ return {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
-    -- Set up custom filetypes
-    -- vim.filetype.add {
-    --   extension = {
-    --     foo = "fooscript",
-    --   },
-    --   filename = {
-    --     ["Foofile"] = "fooscript",
-    --   },
-    --   pattern = {
-    --     ["~/%.config/foo/.*"] = "fooscript",
-    --   },
-    -- }
+    -- https://github.com/AstroNvim/AstroNvim/issues/648#issuecomment-1686549041
+    local user_vimenter = "UserVimEnter"
+    vim.api.nvim_create_augroup(user_vimenter, { clear = true })
+    vim.api.nvim_create_autocmd({"VimEnter"}, {
+      desc = "Open Neo-Tree/Alpha on VimEnter",
+      group = user_vimenter,
+      once = true,
+      callback = function()
+        vim.cmd "Neotree reveal filesystem"
+        vim.cmd "Alpha"
+      end,
+    })
   end,
 }

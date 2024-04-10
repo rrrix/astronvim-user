@@ -1,4 +1,10 @@
 return {
+  {
+    "EdenEast/nightfox.nvim",
+  },
+  { "folke/neodev.nvim",
+    opts = {}
+  },
   -- You can also add new plugins here as well:
   -- Add plugins, the lazy syntax
   -- "andweeb/presence.nvim",

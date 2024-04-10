@@ -1,4 +1,4 @@
--- customize mason plugins
+local uniq = require("astronvim.utils").list_insert_unique
 return {
   -- use mason-lspconfig to configure LSP installations
   {
@@ -6,8 +6,9 @@ return {
     -- overrides `require("mason-lspconfig").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
-        -- "lua_ls",
+      opts.ensure_installed = uniq(opts.ensure_installed, {
+        "ast_grep",
+        "lua_ls",
       })
     end,
   },
@@ -17,9 +18,10 @@ return {
     -- overrides `require("mason-null-ls").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
-        -- "prettier",
-        -- "stylua",
+      opts.ensure_installed = uniq(opts.ensure_installed, {
+        "prettier",
+        "luacheck", -- Lua
+        "stylua", -- Lua
       })
     end,
   },
@@ -28,7 +30,7 @@ return {
     -- overrides `require("mason-nvim-dap").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+      opts.ensure_installed = uniq(opts.ensure_installed, {
         -- "python",
       })
     end,

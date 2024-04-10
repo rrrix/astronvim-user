@@ -7,14 +7,13 @@ return {
     -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
   },
   opts = function(_, opts)
-    local utils = require "astronvim.utils"
     local defaults = require "neo-tree.defaults"
-    local astro_neotree = require "plugins.neo-tree"
-    astro_opts = astro_neotree.opts()
+    local astro_opts = require("plugins.neo-tree").opts()
 
     user_opts = {
       -- close_if_last_window = true,
       filesystem = {
+        hijack_netrw_behavior = "disabled",
         filtered_items = {
           visible = true,
           hide_dotfiles = false,
